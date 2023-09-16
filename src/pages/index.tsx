@@ -4,17 +4,27 @@ import { useState } from "react";
 import parseJSONWithFixes from "~/utils/JSONParse";
 
 export default function Home() {
+  const [history, setHistory] = useState<any>([]);
   const [previewHtml, setPreviewHtml] = useState(``);
   const [isLoading, setIsLoading] = useState(false);
 
-  const parseHtmlRes = (htmlRes: string) => {
+  const parseHtmlRes = (htmlRes: string, body: any) => {
     try {
       const { html } = parseJSONWithFixes(htmlRes);
       setPreviewHtml(html);
+      setHistory([
+        ...history,
+        {
+          html,
+          body,
+        },
+      ]);
     } catch (error) {
       console.error("Oops, something went wrong!");
     }
   };
+
+  console.log(history);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,6 +36,14 @@ export default function Home() {
 
     try {
       setIsLoading(true);
+      const body = previewHtml
+        ? {
+            component: previewHtml,
+            requestedImprovements: fields.curse,
+          }
+        : {
+            component: fields.curse,
+          };
       const res = await fetch(
         previewHtml ? "/api/improveComponent" : "/api/generateComponent",
         {
@@ -33,20 +51,11 @@ export default function Home() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(
-            previewHtml
-              ? {
-                  component: previewHtml,
-                  requestedImprovements: fields.curse,
-                }
-              : {
-                  component: fields.curse,
-                }
-          ),
+          body: JSON.stringify(body),
         }
       ).then((res) => res.json());
       if (res.data) {
-        parseHtmlRes(res.data);
+        parseHtmlRes(res.data, body);
       }
     } catch (error) {
       console.error("Oops, something went wrong!");
@@ -72,10 +81,36 @@ export default function Home() {
             >
               <Input name="curse" placeholder="Type something..." bg="white" />
               <Button type="submit" colorScheme="blue" isLoading={isLoading}>
-                Submit
+                {previewHtml ? "Improve" : "Generate"}
               </Button>
             </HStack>
           </form>
+          <Box>
+            {history
+              .map((item: any, index: number) => (
+                <Box
+                  key={
+                    index + item?.body?.requestedImprovements ??
+                    item?.body?.component
+                  }
+                  p="4"
+                  bg="blue.100"
+                  rounded="md"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  my="4"
+                  onMouseEnter={() => setPreviewHtml(item.html)}
+                  onMouseLeave={() =>
+                    setPreviewHtml(history[history.length - 1].html)
+                  }
+                  cursor="pointer"
+                >
+                  {index + 1}.{" "}
+                  {item?.body?.requestedImprovements ?? item?.body?.component}
+                </Box>
+              ))
+              .reverse()}
+          </Box>
         </Box>
         <Flex flex="1">
           {previewHtml && (

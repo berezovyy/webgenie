@@ -18,7 +18,6 @@ export default async function handler(
     messages: ComponentGeneration(component),
   });
 
-  console.log(ComponentGeneration(component));
   const response = chatCompletion?.choices?.[0]?.message?.content ?? "";
 
   res.status(200).json({ data: response });
