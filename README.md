@@ -3,6 +3,10 @@
 2 prompts app. The slowest possible way to generate components.
 
 
+
+https://github.com/berezovyy/webgenie/assets/3331480/8fa85821-1a2c-48dd-804a-e09a2fb55ab7
+
+
 https://github.com/berezovyy/webgenie/assets/3331480/c4290675-6527-4535-86fb-9ced888d334a
 
 
