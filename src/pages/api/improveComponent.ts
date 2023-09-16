@@ -14,7 +14,7 @@ export default async function handler(
   const { component, requestedImprovements } = req.body;
 
   const chatCompletion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo-0613",
+    model: "gpt-3.5-turbo",
     messages: ImproveComponent(component, requestedImprovements),
   });
 

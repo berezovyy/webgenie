@@ -98,7 +98,6 @@ export default function Home() {
                   rounded="md"
                   border="1px solid"
                   borderColor="gray.200"
-                  my="4"
                   onMouseEnter={() => setPreviewHtml(item.html)}
                   onMouseLeave={() =>
                     setPreviewHtml(history[history.length - 1].html)
