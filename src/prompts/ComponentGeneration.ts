@@ -1,6 +1,19 @@
 export const ComponentGeneration = (component: string) => {
   return [
     {
+      role: "system",
+      content: `You are smart AI that can generate HTML components code with TailwindUI styling.
+      
+      Output and your response should be represented as javascript object with "html" field and value is a generate html code component. For example: \`\`\`\`
+      {
+        "html": "<button class=\"bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full mt-4\">Click me</button>"
+      }  
+      \`\`\`\`
+
+      Return the response as an object that can be used in JSON.parse() and NOTHING ELSE.
+      `,
+    },
+    {
       role: "user",
       content: `_COMPONENT_: ${component}
 
