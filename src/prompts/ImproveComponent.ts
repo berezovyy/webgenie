@@ -8,12 +8,13 @@ export const ImproveComponent = (
       content: `Update the code with requested improvements.
       For icons use FontAwesome.
       
-      Return the response as an object with "html" field that can be used in JSON.parse() and NOTHING ELSE.
-      Example of the generated OUTPUT(IT SHOULD LOOK LIKE THIS):\`\`\`\`
+      Output and your response should be represented as javascript object with "html" field and value is a generate html code component. For example: \`\`\`\`
       {
         "html": "<button class=\"bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full mt-4\">Click me</button>"
-      }
+      }  
       \`\`\`\`
+
+      Return the response as an object that can be used in JSON.parse() and NOTHING ELSE.
       `,
     },
     {
@@ -22,13 +23,13 @@ export const ImproveComponent = (
 
       Requested improvements: "${requestedImprovements}".
       
-      Return the response as an object with "html" field that can be used in JSON.parse() and NOTHING ELSE.
-
-      Example of the OUTPUT(IT SHOULD LOOK LIKE THIS):\`\`\`\`
+      Output and your response should be represented as javascript object with "html" field and value is a generate html code component. For example: \`\`\`\`
       {
         "html": "<button class=\"bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full mt-4\">Click me</button>"
-      }
+      }  
       \`\`\`\`
+
+      Return the response as an object that can be used in JSON.parse() and NOTHING ELSE.
       `,
     },
   ];
